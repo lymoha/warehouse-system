@@ -1,0 +1,23 @@
+package org.fullstackgroupproject.backend.service;
+
+import lombok.RequiredArgsConstructor;
+import org.fullstackgroupproject.backend.model.DtoItem;
+import org.fullstackgroupproject.backend.model.Item;
+import org.fullstackgroupproject.backend.repo.ItemRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+
+public class RoomService {
+    private final ItemRepository itemRepository;
+    private final IdService idService;
+    public void addItem(DtoItem dtoItem) {
+
+        Item newItem = new Item(idService.idGenerator(),
+                dtoItem.getName(), dtoItem.getAmount());
+        itemRepository.save(newItem);
+    }
+
+}
