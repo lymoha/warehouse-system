@@ -23,16 +23,18 @@ class RoomRangerControllerTest {
 
     @Test
     void addItem_ShouldReturnString_WhenCalledWithDtoItems() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/add")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(""" 
-                                {
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.post("/api/add")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(""" 
+
+                                    {
                                 "name": "Test",
                                 "amount": 27
                                 }"""))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().json("""
-                        {
+                             {
                            "name": "Test",
                            "amount": 27
                            }    
@@ -40,5 +42,8 @@ class RoomRangerControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
 
 
+        } catch (NullPointerException e ){
+            throw new NullPointerException(e.getMessage());
+        }
     }
 }
