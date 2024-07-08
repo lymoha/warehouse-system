@@ -12,11 +12,14 @@ import org.springframework.stereotype.Service;
 public class RoomService {
     private final ItemRepository itemRepository;
     private final IdService idService;
-    public void addItem(DtoItem dtoItem) {
+
+    public Item addItem(DtoItem dtoItem) throws NullPointerException {
 
         Item newItem = new Item(idService.idGenerator(),
                 dtoItem.getName(), dtoItem.getAmount());
         itemRepository.save(newItem);
+
+        return newItem;
     }
 
 }
