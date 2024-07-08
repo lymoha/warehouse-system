@@ -18,7 +18,7 @@ public class RoomRangerController {
     @PostMapping("/add")
     public  String addItem(@RequestBody DtoItem dtoItem){
         roomService.addItem(dtoItem);
-        return "OK!";
+        return "OK! Items have being successfully added!";
     }
 
 

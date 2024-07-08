@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.fullstackgroupproject.backend.model.DtoItem;
 import org.fullstackgroupproject.backend.model.Item;
 import org.fullstackgroupproject.backend.repo.ItemRepository;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @Service
