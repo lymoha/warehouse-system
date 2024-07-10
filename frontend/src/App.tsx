@@ -9,7 +9,7 @@ import axios from "axios";
 export default function App() {
 
     const addItem = (newItem: DtoItem) => {
-        axios.post("/add", newItem )
+        axios.post("/api/add", newItem)
             .catch(error => console.error("error adding item: ", error));
     };
 
@@ -24,11 +24,11 @@ export default function App() {
         },
     ])
 
-  return (
-    <>
-       <RouterProvider router={router}/>
-    </>
-  )
+    return (
+        <>
+            <RouterProvider router={router}/>
+        </>
+    )
 }
 
 
