@@ -1,13 +1,21 @@
 import {FormEvent, useState} from "react";
+import {DtoItem} from "../types/Item.ts";
 
-export default function ItemForm() {
+type ItemFormProps = {
+    addItem: (item: DtoItem) => void
+}
+
+export default function ItemForm(props: Readonly<ItemFormProps>) {
     const [name, setName] = useState<string>("");
     const [amount, setAmount] = useState<number>(0);
 
 
+
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-
+        props.addItem({name: name, amount: amount});
+        setName("");
+        setAmount(0);
 
 
     }
