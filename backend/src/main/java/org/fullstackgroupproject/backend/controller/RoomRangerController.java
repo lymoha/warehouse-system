@@ -6,10 +6,9 @@ import org.fullstackgroupproject.backend.model.Item;
 import org.fullstackgroupproject.backend.service.RoomService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api")
@@ -21,5 +20,10 @@ public class RoomRangerController {
     @PostMapping("/add")
     public ResponseEntity<Item> addItem(@RequestBody DtoItem dtoItem) throws NullPointerException {
         return new ResponseEntity<>(roomService.addItem(dtoItem), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Item>> getAllItems() {
+        return new ResponseEntity<>(roomService.getAllItems(),HttpStatus.OK);
     }
 }

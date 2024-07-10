@@ -1,5 +1,6 @@
 package org.fullstackgroupproject.backend.controller;
 
+import org.fullstackgroupproject.backend.model.Item;
 import org.fullstackgroupproject.backend.repo.ItemRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
@@ -21,7 +25,7 @@ class RoomRangerControllerTest {
     private ItemRepository itemRepository;
 
     @Test
-    void addItem_ShouldReturnString_WhenCalledWithDtoItems() throws Exception {
+    void addItem_ShouldReturnItem_WhenCalledWithDtoItems() throws Exception {
         try {
             mockMvc.perform(MockMvcRequestBuilders.post("/api/add")
                             .contentType(MediaType.APPLICATION_JSON)
@@ -45,4 +49,27 @@ class RoomRangerControllerTest {
             throw new NullPointerException(e.getMessage());
         }
     }
+    @Test
+    void getAllItems_ShouldReturnItemList_whenCalledInitially() throws Exception {
+        itemRepository.saveAll(List.of(
+                (new Item("1","test",4))
+        ));
+
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/api"))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            [{
+id: "1",
+name: "test",
+amount: 4
+ }]
+                           """));
+        } catch (NullPointerException e ){
+            throw new NullPointerException(e.getMessage());
+        }
+    }
+
+
+
 }

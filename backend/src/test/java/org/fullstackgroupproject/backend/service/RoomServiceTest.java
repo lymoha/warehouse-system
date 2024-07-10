@@ -7,6 +7,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
@@ -18,12 +21,18 @@ class RoomServiceTest {
     // Dependencies
     private static ItemRepository mockItemRepository;
     private static IdService mockIdService;
+    private static List<Item> testItems;
 
     @BeforeAll
     static void setup(){
         mockItemRepository = mock(ItemRepository.class);
         mockIdService = mock(IdService.class);
         roomService = new RoomService(mockItemRepository, mockIdService);
+        testItems = new ArrayList<>(){{
+            add(new Item("1","test",3));
+            add(new Item("2","test",4));
+            add(new Item("3","test",5));
+        }};
     }
 
     @Test
@@ -57,5 +66,29 @@ class RoomServiceTest {
             assertEquals("Error message", e.getMessage());
         }
 
+    }
+    @Test
+    void getAllItems_shouldReturnAllItems_whenCalled() {
+        //WHEN
+        when(mockItemRepository.findAll()).thenReturn(testItems);
+        List<Item> actual = roomService.getAllItems();
+        //THEN
+        verify(mockItemRepository).findAll();
+        assertEquals(testItems, actual);
+    }
+    @Test
+    void getAllItems_shouldThrowException_WhenWentWrong() {
+               // Mock-Objekt so konfigurieren, dass es eine Ausnahme wirft
+        when(mockItemRepository.findAll()).thenThrow(new NullPointerException("Error message"));
+
+        // WHEN & THEN
+        try{
+            roomService.getAllItems();
+            verify(mockItemRepository).findAll();
+            verify(roomService).getAllItems();
+            fail("Expected exception, but was not thrown");
+        } catch (NullPointerException e){
+            assertEquals("Error message", e.getMessage());
+        }
     }
 }

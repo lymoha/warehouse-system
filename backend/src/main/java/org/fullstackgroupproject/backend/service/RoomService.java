@@ -6,6 +6,8 @@ import org.fullstackgroupproject.backend.model.Item;
 import org.fullstackgroupproject.backend.repo.ItemRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 
@@ -22,4 +24,11 @@ public class RoomService {
         return newItem;
     }
 
+    public List<Item> getAllItems() throws NullPointerException {
+        List<Item> response = itemRepository.findAll();
+        if (response.isEmpty())
+            throw new NullPointerException("No items found");
+        else
+            return response;
+    }
 }
