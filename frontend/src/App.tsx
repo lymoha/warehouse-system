@@ -1,5 +1,5 @@
 import './App.css'
-import {createBrowserRouter, Route, RouterProvider, Routes} from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import HomePage from "./pages/HomePage.tsx";
 import AddPage from "./pages/AddPage.tsx";
 
