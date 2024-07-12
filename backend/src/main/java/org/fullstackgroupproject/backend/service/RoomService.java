@@ -13,7 +13,7 @@ public class RoomService {
     private final ItemRepository itemRepository;
     private final IdService idService;
 
-    public Item addItem(DtoItem dtoItem) throws NullPointerException {
+    public Item addItem(DtoItem dtoItem) {
 
         Item newItem = new Item(idService.idGenerator(),
                 dtoItem.getName(), dtoItem.getAmount());
