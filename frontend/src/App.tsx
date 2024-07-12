@@ -19,9 +19,15 @@ export default function App() {
 
     const getAllItems = () => {
         axios.get("/api")
-            .then(response => {setItems(response.data)})
+            .then(response => {
+                setItems(response.data)
+            })
             .catch(error => console.error("something went wrong", error))
     };
+
+    useEffect(() => {
+        getAllItems();
+    }, []);
 
     const router = createBrowserRouter([
         {
@@ -38,9 +44,6 @@ export default function App() {
         },
     ])
 
-    useEffect(() => {
-        getAllItems();
-    }, []);
 
     return (
         <>
