@@ -68,7 +68,7 @@ class RoomServiceTest {
 
     }
     @Test
-    void getAllItems_shouldReturnAllItems_whenCalled() throws Exception {
+    void getAllItems_shouldReturnAllItems_whenCalled() {
         //WHEN
         when(mockItemRepository.findAll()).thenReturn(testItems);
         List<Item> actual = roomService.getAllItems();
