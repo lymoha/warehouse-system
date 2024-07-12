@@ -1,5 +1,6 @@
 package org.fullstackgroupproject.backend.service;
 
+import org.fullstackgroupproject.backend.exceptions.InvalidIdException;
 import org.fullstackgroupproject.backend.model.DtoItem;
 import org.fullstackgroupproject.backend.model.Item;
 import org.fullstackgroupproject.backend.repo.ItemRepository;
@@ -9,9 +10,9 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -78,7 +79,7 @@ class RoomServiceTest {
     }
     @Test
     void getAllItems_shouldThrowException_WhenWentWrong() {
-               // Mock-Objekt so konfigurieren, dass es eine Ausnahme wirft
+        // Mock-Objekt so konfigurieren, dass es eine Ausnahme wirft
         when(mockItemRepository.findAll()).thenThrow(new NullPointerException("Error message"));
 
         // WHEN & THEN
@@ -90,5 +91,45 @@ class RoomServiceTest {
         } catch (Exception e){
             assertEquals("Error message", e.getMessage());
         }
+    }
+
+    @Test
+    void getItemById_shouldReturnItem_withGivenId() throws InvalidIdException {
+        //WHEN
+        when(mockItemRepository.findById("2")).thenReturn(Optional.of(testItems.get(1)));
+        Item actual = roomService.getItemById("2");
+        //THEN
+        verify(mockItemRepository).findById("2");
+        assertEquals(testItems.get(1), actual);
+    }
+
+    @Test
+    void getItemById_shouldThrowException_WhenWentWrong() {
+        // Mock-Objekt so konfigurieren, dass es eine Ausnahme wirft
+        when(mockItemRepository.findById(any(String.class))).thenReturn(Optional.empty());
+
+        assertThrows(InvalidIdException.class, () -> roomService.getItemById("2"));
+        verify(mockItemRepository).findById("2");
+    }
+
+    @Test
+    void updateItemById_shouldReturnUpdatedItem_withGivenId() throws InvalidIdException {
+        //WHEN
+        when(mockItemRepository.findById("2")).thenReturn(Optional.of(testItems.get(1)));
+        Item actual = roomService.updateItemById("2", new DtoItem("test-tasse", 26));
+        when(mockItemRepository.save(any(Item.class))).thenReturn(actual);
+        //THEN
+        verify(mockItemRepository).findById("2");
+        verify(mockItemRepository).save(any(Item.class));
+        assertNotEquals(testItems.get(1), actual);
+    }
+
+    @Test
+    void updateItemById_shouldThrowException_WhenWentWrong() {
+        // Mock-Objekt so konfigurieren, dass es eine Ausnahme wirft
+        when(mockItemRepository.findById(any(String.class))).thenReturn(Optional.empty());
+
+        assertThrows(InvalidIdException.class, () -> roomService.updateItemById("2", new DtoItem("test-tasse", 26)));
+        verify(mockItemRepository).findById("2");
     }
 }
