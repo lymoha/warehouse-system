@@ -37,9 +37,9 @@ public class GlobalExceptionHandlerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"name\":\"testItem\"}"))
                 // Nullpointer schickt den Status badRequest
-                .andExpect(status().isBadRequest())
+                .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.errorMsg").value("This is a NullPointerException"))
-                .andExpect(jsonPath("$.errorCode").value("BAD_REQUEST"))
+                .andExpect(jsonPath("$.errorCode").value("Forbidden"))
                 .andExpect(jsonPath("$.timestamp").exists())
                 .andExpect(jsonPath("$.apiPath").exists());
     }
