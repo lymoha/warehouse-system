@@ -6,6 +6,8 @@ import org.fullstackgroupproject.backend.model.Item;
 import org.fullstackgroupproject.backend.repo.ItemRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 
@@ -13,7 +15,7 @@ public class RoomService {
     private final ItemRepository itemRepository;
     private final IdService idService;
 
-    public Item addItem(DtoItem dtoItem) throws NullPointerException {
+    public Item addItem(DtoItem dtoItem) {
 
         Item newItem = new Item(idService.idGenerator(),
                 dtoItem.getName(), dtoItem.getAmount());
@@ -22,4 +24,8 @@ public class RoomService {
         return newItem;
     }
 
+    public List<Item> getAllItems() {
+        List<Item> response = itemRepository.findAll();
+        return response;
+    }
 }
