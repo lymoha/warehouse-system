@@ -12,7 +12,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -40,7 +39,7 @@ class RoomRangerControllerTest {
                              {
                            "name": "Test",
                            "amount": 27
-                           }    
+                           }
                            """))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
 
@@ -60,14 +59,54 @@ class RoomRangerControllerTest {
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             [{
-id: "1",
-name: "test",
-amount: 4
- }]
+                            id: "1",
+                            name: "test",
+                            amount: 4
+                             }]
                            """));
         } catch (NullPointerException e ){
             throw new NullPointerException(e.getMessage());
         }
+    }
+
+    @Test
+    void getItemById_ShouldReturnItem_withGivenId() throws Exception {
+        itemRepository.saveAll(List.of(
+                (new Item("1","test",4))
+        ));
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/1"))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                            id: "1",
+                            name: "test",
+                            amount: 4
+                             }
+                           """));
+    }
+
+    @Test
+    void updateItemById_ShouldReturnUpdatedItem_withGivenId() throws Exception {
+        itemRepository.saveAll(List.of(
+                (new Item("1","test",4))
+        ));
+            mockMvc.perform(MockMvcRequestBuilders.put("/api/1")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                            {
+                            "name": "test",
+                            "amount": 4
+                             }
+                            """))
+
+                    .andExpect(MockMvcResultMatchers.status().isCreated())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                            id: "1",
+                            name: "test",
+                            amount: 4
+                             }
+                           """));
     }
 
 
