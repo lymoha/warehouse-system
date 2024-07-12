@@ -24,11 +24,8 @@ public class RoomService {
         return newItem;
     }
 
-    public List<Item> getAllItems() throws Exception {
+    public List<Item> getAllItems() {
         List<Item> response = itemRepository.findAll();
-        if (response.isEmpty())
-            throw new Exception("No items found");
-        else
-            return response;
+        return response;
     }
 }

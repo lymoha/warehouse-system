@@ -23,7 +23,7 @@ public class RoomRangerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Item>> getAllItems() throws Exception {
+    public ResponseEntity<List<Item>> getAllItems(){
         return new ResponseEntity<>(roomService.getAllItems(),HttpStatus.OK);
     }
 }
