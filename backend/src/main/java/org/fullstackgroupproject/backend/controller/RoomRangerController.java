@@ -18,12 +18,12 @@ public class RoomRangerController {
     private final RoomService roomService;
 
     @PostMapping("/add")
-    public ResponseEntity<Item> addItem(@RequestBody DtoItem dtoItem) throws NullPointerException {
+    public ResponseEntity<Item> addItem(@RequestBody DtoItem dtoItem){
         return new ResponseEntity<>(roomService.addItem(dtoItem), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Item>> getAllItems() {
+    public ResponseEntity<List<Item>> getAllItems() throws Exception {
         return new ResponseEntity<>(roomService.getAllItems(),HttpStatus.OK);
     }
 }

@@ -15,7 +15,7 @@ public class RoomService {
     private final ItemRepository itemRepository;
     private final IdService idService;
 
-    public Item addItem(DtoItem dtoItem) throws NullPointerException {
+    public Item addItem(DtoItem dtoItem) {
 
         Item newItem = new Item(idService.idGenerator(),
                 dtoItem.getName(), dtoItem.getAmount());
@@ -24,10 +24,10 @@ public class RoomService {
         return newItem;
     }
 
-    public List<Item> getAllItems() throws NullPointerException {
+    public List<Item> getAllItems() throws Exception {
         List<Item> response = itemRepository.findAll();
         if (response.isEmpty())
-            throw new NullPointerException("No items found");
+            throw new Exception("No items found");
         else
             return response;
     }

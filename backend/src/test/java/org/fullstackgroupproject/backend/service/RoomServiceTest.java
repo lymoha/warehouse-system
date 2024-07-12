@@ -68,7 +68,7 @@ class RoomServiceTest {
 
     }
     @Test
-    void getAllItems_shouldReturnAllItems_whenCalled() {
+    void getAllItems_shouldReturnAllItems_whenCalled() throws Exception {
         //WHEN
         when(mockItemRepository.findAll()).thenReturn(testItems);
         List<Item> actual = roomService.getAllItems();
@@ -87,7 +87,7 @@ class RoomServiceTest {
             verify(mockItemRepository).findAll();
             verify(roomService).getAllItems();
             fail("Expected exception, but was not thrown");
-        } catch (NullPointerException e){
+        } catch (Exception e){
             assertEquals("Error message", e.getMessage());
         }
     }
