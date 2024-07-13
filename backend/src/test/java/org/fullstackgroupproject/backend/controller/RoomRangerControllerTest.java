@@ -90,7 +90,7 @@ class RoomRangerControllerTest {
         itemRepository.saveAll(List.of(
                 (new Item("1","test",4))
         ));
-            mockMvc.perform(MockMvcRequestBuilders.put("/api/1")
+            mockMvc.perform(MockMvcRequestBuilders.put("/api/update/1")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content("""
                             {

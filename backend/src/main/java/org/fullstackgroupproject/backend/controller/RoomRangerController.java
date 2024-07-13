@@ -36,7 +36,7 @@ public class RoomRangerController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public Item updateItemById(@PathVariable String id, @RequestBody DtoItem dtoItem) throws InvalidIdException {
         return roomService.updateItemById(id, dtoItem);
     }

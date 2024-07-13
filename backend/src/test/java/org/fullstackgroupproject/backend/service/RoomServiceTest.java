@@ -4,7 +4,7 @@ import org.fullstackgroupproject.backend.exceptions.InvalidIdException;
 import org.fullstackgroupproject.backend.model.DtoItem;
 import org.fullstackgroupproject.backend.model.Item;
 import org.fullstackgroupproject.backend.repo.ItemRepository;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;
 
@@ -24,8 +24,8 @@ class RoomServiceTest {
     private static IdService mockIdService;
     private static List<Item> testItems;
 
-    @BeforeAll
-    static void setup(){
+    @BeforeEach
+    void setup(){
         mockItemRepository = mock(ItemRepository.class);
         mockIdService = mock(IdService.class);
         roomService = new RoomService(mockItemRepository, mockIdService);
