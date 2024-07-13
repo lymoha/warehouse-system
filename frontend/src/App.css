@@ -1,7 +1,5 @@
 #root {
     margin: 0;
-    text-align: center;
-
 }
 
 
@@ -11,6 +9,25 @@ body {
 <!-- https: / / developer . mozilla . org /en-US/ docs /Web/ CSS / box-sizing --> min-width: 320px;
     width: 100vW;
     min-height: 100vh;
+}
+button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 1rem 1rem;
+    font-size: 1.6rem;
+    font-family: inherit;
+    cursor: pointer;
+    color: #242424;
+    transition: border-color 0.25s;
+}
+
+button:hover {
+    border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
 }
 
 

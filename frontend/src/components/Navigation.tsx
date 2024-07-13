@@ -4,7 +4,6 @@ import "../styles/Navigation.css"
 export default function Navigation() {
 
     return (
-        <nav>
             <ul>
                 <li>
                     <Link to={"/"}>Home</Link>
@@ -13,8 +12,6 @@ export default function Navigation() {
                     <Link to={"/gallery"}>Gallery</Link>
                 </li>
             </ul>
-
-        </nav>
     )
 
 

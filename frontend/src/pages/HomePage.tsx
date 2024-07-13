@@ -7,7 +7,7 @@ export default function HomePage() {
 
     return (
         <>
-            <Header/>
+            <Header />
             <button type="button" onClick={onButtonClick}>Add</button>
         </>
 
