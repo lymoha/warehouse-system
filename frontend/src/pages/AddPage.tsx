@@ -7,6 +7,6 @@ type AddPageProps= {
 
 export default function AddPage(props: Readonly<AddPageProps>) {
     return (
-        <ItemForm addItem={props.addItem}/>
+        <ItemForm manipulateItem={props.addItem}/>
     );
 }

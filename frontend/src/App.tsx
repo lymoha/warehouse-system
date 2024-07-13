@@ -6,6 +6,7 @@ import {DtoItem, Item} from "./types/Item.ts";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import ItemGalleryPage from "./pages/ItemGalleryPage.tsx";
+import DetailPage from "./pages/DetailPage.tsx";
 
 
 export default function App() {
@@ -16,6 +17,12 @@ export default function App() {
         axios.post("/api/add", newItem)
             .catch(error => console.error("error adding item: ", error));
     };
+
+    const updateItem = (item: DtoItem, id: string | undefined) => {
+        axios.put("/api/update/" + id, item)
+            .then(getAllItems)
+            .catch(error => console.error("Error updating item: ", error));
+    }
 
     const getAllItems = () => {
         axios.get("/api")
@@ -42,6 +49,11 @@ export default function App() {
             path: "/gallery",
             element: <ItemGalleryPage items={items}/>
         },
+        {
+            path: "/update/:id",
+            element: <DetailPage updateItem={updateItem}/>
+        },
+
     ])
 
 

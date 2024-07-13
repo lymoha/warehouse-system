@@ -4,7 +4,7 @@ import '../styles/ItemForm.css'
 import {useNavigate} from "react-router-dom";
 
 type ItemFormProps = {
-    addItem: (item: DtoItem) => void
+    manipulateItem: (item: DtoItem, id?: string) => void
 }
 
 export default function ItemForm(props: Readonly<ItemFormProps>) {
@@ -12,9 +12,11 @@ export default function ItemForm(props: Readonly<ItemFormProps>) {
     const [amount, setAmount] = useState<number>(0);
     const navigate = useNavigate();
 
+
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        props.addItem({name: name, amount: amount});
+
+        props.manipulateItem({name: name, amount: amount});
         setName("");
         setAmount(0);
 
