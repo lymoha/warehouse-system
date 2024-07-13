@@ -14,7 +14,6 @@ export default function ItemGalleryPage(props:Readonly<ItemGalleryPageProps>) {
             <div className="gallery">
                 {props.items.map(item => (
                     <ItemCard key={item.id} item={item}/>
-
                 ))}
             </div>
         </>

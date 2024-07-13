@@ -7,7 +7,7 @@ type DetailPageProps = {
 
 export default function DetailPage(props: Readonly<DetailPageProps>) {
     return (
-        <ItemForm manipulateItem={props.updateItem}/>
+        <ItemForm manipulateItem={props.updateItem} />
     )
 
 }
