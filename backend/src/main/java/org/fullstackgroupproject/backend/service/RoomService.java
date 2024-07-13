@@ -41,4 +41,8 @@ public class RoomService {
         foundItem.setAmount(dtoItem.getAmount());
         return itemRepository.save(foundItem);
     }
+
+    public void deleteItem(String id) {
+        itemRepository.deleteById(id);
+    }
 }

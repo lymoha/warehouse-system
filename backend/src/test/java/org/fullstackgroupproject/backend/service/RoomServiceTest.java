@@ -132,4 +132,13 @@ class RoomServiceTest {
         assertThrows(InvalidIdException.class, () -> roomService.updateItemById("2", new DtoItem("test-tasse", 26)));
         verify(mockItemRepository).findById("2");
     }
+
+    @Test
+    void deleteItemById_shouldDeleteById_WhenCalledWithId() {
+        //WHEN
+        roomService.deleteItem("1");
+        //THEN
+        verify(mockItemRepository,times(1)).deleteById("1");
+
+    }
 }

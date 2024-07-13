@@ -35,6 +35,12 @@ public class RoomRangerController {
         return roomService.getItemById(id);
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/{id}")
+    public void deleteItem(@PathVariable String id) {
+        roomService.deleteItem(id);
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/update/{id}")
     public Item updateItemById(@PathVariable String id, @RequestBody DtoItem dtoItem) throws InvalidIdException {

@@ -109,6 +109,15 @@ class RoomRangerControllerTest {
                            """));
     }
 
+    @Test
+    void deleteItemById_ShouldReturnDeletedItem_withGivenId() throws Exception {
+        itemRepository.save(new Item("1","test",4));
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/{id}","1"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+    }
+
+
 
 
 }
