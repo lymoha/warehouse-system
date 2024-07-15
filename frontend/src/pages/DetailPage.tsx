@@ -1,9 +1,9 @@
 import ItemForm from "../components/ItemForm.tsx";
 
-export default function AddPage() {
-
+export default function DetailPage() {
 
     return (
         <ItemForm/>
-    );
+    )
+
 }
