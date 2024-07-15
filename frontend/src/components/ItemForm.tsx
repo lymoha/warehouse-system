@@ -1,30 +1,45 @@
 import {FormEvent, useState} from "react";
-import {DtoItem} from "../types/Item.ts";
 import '../styles/ItemForm.css'
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useItemContext} from "../hooks/useItemContext.ts";
+import {Item} from "../types/Item.ts";
 
-type ItemFormProps = {
-    manipulateItem: (item: DtoItem, id?: string) => void
-}
+export default function ItemForm() {
+    const {addItem, updateItem, items} = useItemContext();
 
-export default function ItemForm(props: Readonly<ItemFormProps>) {
-    const [name, setName] = useState<string>("");
-    const [amount, setAmount] = useState<number>(0);
+    // ID aus url
+    const urlParams = useParams()
+    const id:string = urlParams.id || "";
+
+    const currentItem: Item | undefined = items.find(item => item.id === urlParams.id)
+
+    const [name, setName] = useState<string>(currentItem ? currentItem.name : "");
+    const [amount, setAmount] = useState<number>(currentItem ? currentItem.amount : 0);
     const navigate = useNavigate();
+    const location = useLocation();
 
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        props.manipulateItem({name: name, amount: amount});
+        if (location.pathname === ("/add")) {
+            addItem({name: name, amount: amount});
+            navigate("/")
+        } else if(location.pathname === ("/update/" + id)) {
+             updateItem({name: name, amount: amount}, id);
+            navigate("/gallery")
+        }
         setName("");
         setAmount(0);
-
-
+        console.log(location.pathname)
     }
 
     function handleCancel() {
-        navigate("/");
+        if (location.pathname === ("/add")) {
+            navigate("/")
+        } else if(location.pathname === ("/update/" + id)) {
+            navigate("/gallery")
+        }
     }
 
     return (

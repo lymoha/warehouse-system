@@ -1,18 +1,16 @@
-import {Item} from "../types/Item.ts";
 import ItemCard from "../components/ItemCard.tsx";
 import Header from "../components/Header.tsx";
 import "../styles/ItemGalleryPage.css"
+import {useItemContext} from "../hooks/useItemContext.ts";
 
-type ItemGalleryPageProps = {
-    items:Item[],
-}
+export default function ItemGalleryPage() {
+    const {items} = useItemContext();
 
-export default function ItemGalleryPage(props:Readonly<ItemGalleryPageProps>) {
     return (
         <>
             <Header/>
             <div className="gallery">
-                {props.items.map(item => (
+                {items.map(item => (
                     <ItemCard key={item.id} item={item}/>
                 ))}
             </div>
