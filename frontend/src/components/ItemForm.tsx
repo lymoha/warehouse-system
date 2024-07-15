@@ -9,7 +9,7 @@ export default function ItemForm() {
 
     // ID aus url
     const urlParams = useParams()
-    const id:string = urlParams.id || "";
+    const id: string = urlParams.id || "";
 
     const currentItem: Item | undefined = items.find(item => item.id === urlParams.id)
 
@@ -25,8 +25,8 @@ export default function ItemForm() {
         if (location.pathname === ("/add")) {
             addItem({name: name, amount: amount});
             navigate("/")
-        } else if(location.pathname === ("/update/" + id)) {
-             updateItem({name: name, amount: amount}, id);
+        } else if (location.pathname === ("/update/" + id)) {
+            updateItem({name: name, amount: amount}, id);
             navigate("/gallery")
         }
         setName("");
@@ -37,7 +37,7 @@ export default function ItemForm() {
     function handleCancel() {
         if (location.pathname === ("/add")) {
             navigate("/")
-        } else if(location.pathname === ("/update/" + id)) {
+        } else if (location.pathname === ("/update/" + id)) {
             navigate("/gallery")
         }
     }
@@ -48,7 +48,7 @@ export default function ItemForm() {
 
                 <label className="item-label">Name:</label>
                 <input className="item-input" type="text" value={name}
-                       onChange={(e) => setName(e.target.value)}/>
+                       onChange={(e) => setName(e.target.value)} required={true}/>
                 <label className="item-label">Amount: </label>
                 <input className="item-input" type="number" value={amount}
                        onChange={(e) => setAmount(Number(e.target.value))}/>

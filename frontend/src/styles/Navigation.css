@@ -1,8 +1,7 @@
 ul {
     display: flex;
-    justify-content: center;
-    gap: 10px;
-
+    gap: 4rem;
+    padding-left: 0;
 }
 
 li {

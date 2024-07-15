@@ -1,15 +1,13 @@
 import Header from "../components/Header.tsx";
-import {useNavigate} from "react-router-dom";
+import DummyItem from "../components/DummyItem.tsx";
+import "../styles/PageContainer.css"
 
 export default function HomePage() {
-    const navigate = useNavigate();
-    const onButtonClick = () => navigate("/add");
-
     return (
-        <>
-            <Header />
-            <button type="button" onClick={onButtonClick}>Add</button>
-        </>
+        <div className={"page-container"}>
+            <Header/>
+            <DummyItem/>
+        </div>
 
 
     );
