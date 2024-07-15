@@ -1,8 +1,9 @@
 import {DtoItem, Item} from "../types/Item.ts";
-import {createContext, FC, ReactNode, useEffect, useState} from "react";
+import {FC, ReactNode, useEffect, useState} from "react";
 import axios from "axios";
+import { ItemContext } from "../hooks/useItemContext.ts";
 
-type ItemContextType = {
+export type ItemContextType = {
     items: Item[];
     getAllItems: () => void;
     updateItem: (newItem:DtoItem, id:string) => void;
@@ -10,7 +11,6 @@ type ItemContextType = {
     deleteById: (id:string) => void;
 }
 
-export const ItemContext = createContext<ItemContextType | undefined>(undefined);
 
 export const ItemProvider: FC<{children:ReactNode}> = ({children}) => {
 
